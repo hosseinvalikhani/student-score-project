@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./../public/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-poppins text-base">
+    <div class="flex items-center justify-center py-8">
+      <div class="flex gap-4">
+        <input
+          type="text"
+          placeholder=" Name"
+          class="name bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
+        />
+        <input
+          type="text"
+          placeholder=" Course"
+          class="course bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
+        />
+        <input
+          type="number"
+          placeholder=" Score"
+          class="score bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
+        />
+        <button
+          class="btn bg-midGreen px-8 h-8 text-white font-poppins rounded"
+        >
+          add
+        </button>
+        <!-- <button class="rem bg-midGreen px-8 h-8 text-white
+        font-poppins rounded">remove</button> -->
+      </div>
+    </div>
+    <div class="myTab flex flex-col gap-2 items-center justify-center px-8">
+      <div
+        id="hirad"
+        class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen"
+      >
+        <p class="w-36">Student Number</p>
+        <p class="w-36">Student Name</p>
+        <p class="w-36">Course Subject</p>
+        <p class="w-36">Score</p>
+        <p class="w-36">&nbsp;</p>
+      </div>
+    </div>
+
+    <script src="./../public/js/script.js" defer></script>
+  </body>
+</html>
