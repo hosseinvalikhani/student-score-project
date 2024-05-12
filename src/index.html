@@ -19,7 +19,7 @@
     />
   </head>
   <body class="font-poppins text-base">
-    <div class="flex items-center justify-center py-8">
+    <div class="flex flex-col items-center justify-center py-8">
       <div class="flex gap-4">
         <input
           type="text"
@@ -41,8 +41,15 @@
         >
           add
         </button>
+
         <!-- <button class="rem bg-midGreen px-8 h-8 text-white
         font-poppins rounded">remove</button> -->
+      </div>
+      <div
+        class="input--Empty--text hidden justify-between w-96 bg-red-400 mt-8 p-4"
+      >
+        <p class="">fill all input</p>
+        <button class="okBtn w-16 bg-blue-300" onclick="remDan()">ok</button>
       </div>
     </div>
 
@@ -76,6 +83,8 @@
         </div>
       </div>
     </div>
+
+    <div class="modal--delete hidden z-20"></div>
     <div
       class="overlay hidden absolute top-0 left-0 w-full h-full bg-[rgba(0, 0, 0, 0.6)] backdrop-blur-sm z-10"
     ></div>

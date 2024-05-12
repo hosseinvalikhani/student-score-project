@@ -556,14 +556,6 @@ video {
   top: 0px;
 }
 
-.z-40 {
-  z-index: 40;
-}
-
-.z-50 {
-  z-index: 50;
-}
-
 .z-10 {
   z-index: 10;
 }
@@ -575,6 +567,10 @@ video {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.mt-8 {
+  margin-top: 2rem;
 }
 
 .flex {
@@ -597,8 +593,16 @@ video {
   height: 100%;
 }
 
+.w-16 {
+  width: 4rem;
+}
+
 .w-36 {
   width: 9rem;
+}
+
+.w-96 {
+  width: 24rem;
 }
 
 .w-full {
@@ -615,6 +619,10 @@ video {
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }
 
 .gap-2 {
@@ -646,6 +654,11 @@ video {
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
+.bg-blue-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(147 197 253 / var(--tw-bg-opacity));
+}
+
 .bg-green-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(134 239 172 / var(--tw-bg-opacity));
@@ -653,6 +666,11 @@ video {
 
 .bg-midGreen {
   background-color: hsla(159, 36%, 57%, 1);
+}
+
+.bg-red-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
 
 .bg-red-500 {
@@ -663,6 +681,10 @@ video {
 .bg-slate-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(203 213 225 / var(--tw-bg-opacity));
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .px-4 {
@@ -755,6 +777,10 @@ video {
   background: hsla(159, 65%, 88%, 1);
 }
 
+.backColor2 {
+  background: hsla(159, 36%, 57%, 1);
+}
+
 .show-modal {
   font-size: 2rem;
   font-weight: 600;
@@ -800,6 +826,32 @@ video {
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
   z-index: 5;
+}
+
+.modal--delete {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  background-color: white;
+  padding: 6rem;
+  border-radius: 5px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.bgRed {
+  background: red;
 }
 
 .focus\:bg-slate-50:focus {

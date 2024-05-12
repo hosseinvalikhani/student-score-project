@@ -56,6 +56,9 @@
   background: hsla(159, 65%, 88%, 1);
 }
 
+.backColor2 {
+  background: hsla(159, 36%, 57%, 1);
+}
 .show-modal {
   font-size: 2rem;
   font-weight: 600;
@@ -102,4 +105,30 @@
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3px);
   z-index: 5;
+}
+
+.modal--delete {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  background-color: white;
+  padding: 6rem;
+  border-radius: 5px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.bgRed {
+  background: red;
 }
