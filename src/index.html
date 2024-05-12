@@ -45,6 +45,41 @@
         font-poppins rounded">remove</button> -->
       </div>
     </div>
+
+    <div class="modal hidden z-20">
+      <button class="close-modal" onclick="cancel()">&times;</button>
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-4">
+          <input
+            type="text"
+            placeholder=" Name"
+            class="nameModal bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
+          />
+          <input
+            type="text"
+            placeholder=" Course"
+            class="courseModal bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
+          />
+          <input
+            type="number"
+            placeholder=" Score"
+            class="scoreModal bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
+          />
+        </div>
+        <div class="mx-auto">
+          <button class="w-36 h-8 rounded-md bg-red-500" onclick="cancel()">
+            cancel
+          </button>
+          <button class="w-36 h-8 rounded-md bg-green-300" onclick="done()">
+            done
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="overlay hidden absolute top-0 left-0 w-full h-full bg-[rgba(0, 0, 0, 0.6)] backdrop-blur-sm z-10"
+    ></div>
+
     <div class="myTab flex flex-col gap-2 items-center justify-center px-8">
       <div
         id="hirad"

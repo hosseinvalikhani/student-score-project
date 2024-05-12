@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 let userData = [];
 
 let deleteBtn = [];
@@ -7,16 +7,16 @@ let deleteBtn = [];
 // let course = document.querySelector('.course').value;
 // let score = document.querySelector('.score').value;
 // userData.push({ stuName, course, score });
-const table = document.querySelector(".myTab");
-const body = document.querySelector("body");
+const table = document.querySelector('.myTab');
+const body = document.querySelector('body');
 // console.log(body);
 // console.log(table);
 const saveData = function () {
-  let stuName = document.querySelector(".name").value;
-  let course = document.querySelector(".course").value;
-  let score = document.querySelector(".score").value;
+  let stuName = document.querySelector('.name').value;
+  let course = document.querySelector('.course').value;
+  let score = document.querySelector('.score').value;
   userData.push({ stuName, course, score });
-  table.innerHTML = "";
+  table.innerHTML = '';
   console.log(table);
   rowText = `
     <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
@@ -79,11 +79,11 @@ const createRow = function () {
   });
 
   // console.log(rowText);
-  table.insertAdjacentHTML("beforeend", rowText);
+  table.insertAdjacentHTML('beforeend', rowText);
 
   // console.log(userData);
 };
-let rowText = "";
+let rowText = '';
 rowText += `<div class="myTab flex flex-col gap-2 items-center justify-center px-8">
 <div class="flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
         <p class="w-36">Student Number</p>
@@ -108,14 +108,16 @@ const addRow = function (index) {
   }" class="delBtn del-btn-${
     index + 1
   } w-16 bg-red-700" onclick = "remove(this)">delete</button>
-        <button class="editBtn w-16 bg-blue-300">edit</button>
+        <button id="${index + 1}" data-btn="${
+    index + 1
+  }" class="editBtn w-16 bg-blue-300" onclick = "editFunc(this)">edit</button>
     </p>
     
     </div>`;
 
-  document.querySelector(".name").value = "";
-  document.querySelector(".course").value = "";
-  document.querySelector(".score").value = "";
+  document.querySelector('.name').value = '';
+  document.querySelector('.course').value = '';
+  document.querySelector('.score').value = '';
 
   // const btn1 = document.getElementById(".btn-1");
   // btn1.addEventListener("click", () => {
@@ -130,13 +132,13 @@ const addRow = function (index) {
   // userData[i].forEach((s)=>console.log(s.score,s.stuName,s.course));
 };
 
-const btn = document.querySelector(".btn");
-btn.addEventListener("click", saveData);
+const btn = document.querySelector('.btn');
+btn.addEventListener('click', saveData);
 
 function remove(button) {
   let number = button.id;
-  let row = document.getElementById(`row${number}`);
-  row.remove();
+  // let row = document.getElementById(`row${number}`);
+  // row.remove();
   let count = userData.length;
   const part1 = userData.slice(0, number - 1);
   console.log(part1);
@@ -145,7 +147,7 @@ function remove(button) {
   userData = part1.concat(part2);
   console.log(userData);
 
-  table.innerHTML = "";
+  table.innerHTML = '';
   // console.log(table);
   rowText = `
     <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
@@ -157,6 +159,72 @@ function remove(button) {
 
           </div>`;
   createRow();
+}
+
+let number;
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+
+function editFunc(button) {
+  modal.classList.remove('hidden');
+  modal.classList.add('block');
+  overlay.classList.remove('hidden');
+  overlay.classList.add('block');
+
+  number = button.id;
+}
+function done() {
+  // const modal = document.querySelector('.modal');
+  let count = userData.length;
+  let stuName = document.querySelector('.nameModal').value;
+  let course = document.querySelector('.courseModal').value;
+  let score = document.querySelector('.scoreModal').value;
+  const part1 = userData.slice(0, number - 1);
+
+  part1.push({ stuName, course, score });
+  console.log(part1);
+  const part2 = userData.slice(number, count);
+  console.log(part2);
+  userData = part1.concat(part2);
+  console.log(userData);
+  document.querySelector('.nameModal').value = '';
+  document.querySelector('.courseModal').value = '';
+  document.querySelector('.scoreModal').value = '';
+
+  table.innerHTML = '';
+  console.log(table);
+  rowText = `
+    <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
+            <p class="w-36">Student Number</p>
+            <p class="w-36">Student Name</p>
+            <p class="w-36">Course Subject</p>
+            <p class="w-36">Score</p>
+            <p class="w-36">&nbsp;</p>
+            
+          </div>`;
+  createRow();
+  modal.classList.remove('block');
+  modal.classList.add('hidden');
+
+  overlay.classList.remove('block');
+  overlay.classList.add('hidden');
+}
+
+function cancel() {
+  // const modal = document.querySelector('.modal');
+  let stuName = document.querySelector('.nameModal').value;
+  let course = document.querySelector('.courseModal').value;
+  let score = document.querySelector('.scoreModal').value;
+
+  document.querySelector('.nameModal').value = '';
+  document.querySelector('.courseModal').value = '';
+  document.querySelector('.scoreModal').value = '';
+
+  modal.classList.remove('block');
+  modal.classList.add('hidden');
+
+  overlay.classList.remove('block');
+  overlay.classList.add('hidden');
 }
 // console.log("slm", document.getElementById("btn-1"));
 
