@@ -66,7 +66,7 @@ rowText += `<div class="myTab flex flex-col gap-2 items-center justify-center px
       </div>`;
 const addRow = function (index) {
   // console.log(userData[index].score,userData[index].course, userData[index].stuName);
-  rowText += `<div class="row flex items-center px-4 rounded-md gap-8 h-12 min-h-12 backColor mt-2"
+  rowText += `<div class="row flex items-center px-4 rounded-md gap-8 h-12 min-h-12 backColor mt-2 myShadow"
   data-row="${index + 1}" id="row${index + 1}"
   >
     <p class="w-36">${index + 1}</p>
@@ -242,4 +242,21 @@ function cancel() {
   overlay.classList.add('hidden');
 }
 
+function Hider() {
+  modal.classList.remove('block');
+  modal.classList.add('hidden');
+
+  overlay.classList.remove('block');
+  overlay.classList.add('hidden');
+}
+overlay.addEventListener('click', () => {
+  modal.classList.remove('block');
+  modal.classList.add('hidden');
+
+  overlay.classList.remove('block');
+  overlay.classList.add('hidden');
+
+  modalDlt.classList.remove('flex');
+  modalDlt.classList.add('hidden');
+});
 // delete modal
