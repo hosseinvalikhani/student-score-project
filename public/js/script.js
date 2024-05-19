@@ -11,10 +11,6 @@ const btn = document.querySelector('.btn');
 btn.addEventListener('click', saveData);
 const inputEmpty = document.querySelector('.input--Empty--text');
 
-function remDan() {
-  inputEmpty.classList.remove('flex');
-  inputEmpty.classList.add('hidden');
-}
 function saveData() {
   if (
     document.querySelector('.name').value === '' ||
@@ -47,6 +43,10 @@ function saveData() {
   createRow();
 }
 
+function remDan() {
+  inputEmpty.classList.remove('flex');
+  inputEmpty.classList.add('hidden');
+}
 const createRow = function () {
   userData.forEach((data, i) => {
     addRow(i);
@@ -54,42 +54,42 @@ const createRow = function () {
   table.insertAdjacentHTML('beforeend', rowText);
 };
 
-let rowText = '';
-rowText += `<div class="myTab flex flex-col gap-2 items-center justify-center px-8">
-<div class="flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
-        <p class="w-36">Student Number</p>
-        <p class="w-36">Student Name</p>
-        <p class="w-36">Course Subject</p>
-        <p class="w-36">Score</p>
-        <p class="w-36">&nbsp;</p>
-        
-      </div>`;
-const addRow = function (index) {
-  // console.log(userData[index].score,userData[index].course, userData[index].stuName);
-  rowText += `<div class="row flex items-center px-4 rounded-md gap-8 h-12 min-h-12 backColor mt-2 myShadow"
-  data-row="${index + 1}" id="row${index + 1}"
-  >
-    <p class="w-36">${index + 1}</p>
-    <p class="w-36">${userData[index].stuName}</p>
-    <p class="w-36">${userData[index].course}</p>
-    <p class="w-36">${userData[index].score}</p>
-    <p class="w-36 flex gap-4">
-        <button id="${index + 1}" data-btn="${
-    index + 1
-  }" class="delBtn del-btn-${
-    index + 1
-  } w-16 bg-red-700" onclick = "openDeleteModal(this)">delete</button>
-        <button id="${index + 1}" data-btn="${
-    index + 1
-  }" class="editBtn w-16 bg-blue-300" onclick = "editFunc(this)">edit</button>
-    </p>
-    
-    </div>`;
+// let rowText = '';
+// rowText += `<div class="myTab flex flex-col gap-2 items-center justify-center px-8">
+// <div class="flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
+//         <p class="w-36">Student Number</p>
+//         <p class="w-36">Student Name</p>
+//         <p class="w-36">Course Subject</p>
+//         <p class="w-36">Score</p>
+//         <p class="w-36">&nbsp;</p>
 
-  document.querySelector('.name').value = '';
-  document.querySelector('.course').value = '';
-  document.querySelector('.score').value = '';
-};
+//       </div>`;
+// const addRow = function (index) {
+//   // console.log(userData[index].score,userData[index].course, userData[index].stuName);
+//   rowText += `<div class="row flex items-center px-4 rounded-md gap-8 h-12 min-h-12 backColor mt-2 myShadow"
+//   data-row="${index + 1}" id="row${index + 1}"
+//   >
+//     <p class="w-36">${index + 1}</p>
+//     <p class="w-36">${userData[index].stuName}</p>
+//     <p class="w-36">${userData[index].course}</p>
+//     <p class="w-36">${userData[index].score}</p>
+//     <p class="w-36 flex gap-4">
+//         <button id="${index + 1}" data-btn="${
+//     index + 1
+//   }" class="delBtn del-btn-${
+//     index + 1
+//   } w-16 bg-red-700" onclick = "openDeleteModal(this)">delete</button>
+//         <button id="${index + 1}" data-btn="${
+//     index + 1
+//   }" class="editBtn w-16 bg-blue-300" onclick = "editFunc(this)">edit</button>
+//     </p>
+
+//     </div>`;
+
+//   document.querySelector('.name').value = '';
+//   document.querySelector('.course').value = '';
+//   document.querySelector('.score').value = '';
+// };
 
 const modalDlt = document.querySelector('.modal--delete');
 // const modalDltHtml = document.querySelector('.modal--html');
@@ -196,7 +196,7 @@ function done() {
   let course = document.querySelector('.courseModal').value;
   let score = document.querySelector('.scoreModal').value;
   const part1 = userData.slice(0, number - 1);
-
+  console.log(part1);
   part1.push({ stuName, course, score });
   console.log(part1);
   const part2 = userData.slice(number, count);

@@ -103,6 +103,36 @@
       </div>
     </div>
 
-    <script src="./../public/js/script.js" defer></script>
+    <!-- <script src="./../public/js/script.js" defer></script> -->
+
+    <script type="module">
+      import addRow from './../public/js/addRow.js';
+      import { remDan } from './../public/js/addRow.js';
+      window.remDan = remDan;
+      // const {
+      //   openDeleteModal,
+      //   cancelDlt,
+      // } = require('./../public/js/openDeleteModal.js');
+      // import openDeleteModal from './../public/js/openDeleteModal.js';
+      // window.openDeleteModal = openDeleteModal;
+
+      // import cancelDlt from './../public/js/openDeleteModal.js';
+      // window.cancelDlt = cancelDlt;
+
+      import {
+        openDeleteModal,
+        cancelDlt,
+        remove,
+      } from './../public/js/openDeleteModal.js';
+
+      window.cancelDlt = cancelDlt;
+      window.openDeleteModal = openDeleteModal;
+      window.remove = remove;
+
+      import { editFunc, cancel, done } from './../public/js/editFunc.js';
+      window.editFunc = editFunc;
+      window.cancel = cancel;
+      window.done = done;
+    </script>
   </body>
 </html>
