@@ -1,11 +1,22 @@
+import { arrayData } from './removeLocal.js';
+console.log(arrayData.userData);
+
 let rowText = '';
 
 // btn.addEventListener('click', addRow);
 
 const btn = document.querySelector('.btn');
 const table = document.querySelector('.myTab');
-btn.addEventListener('click', saveData);
+
 let userData = [];
+console.log(localStorage.userData);
+if (JSON.parse(localStorage.getItem('userData'))) {
+  userData = JSON.parse(localStorage.getItem('userData'));
+  createRow();
+}
+
+console.log(JSON.parse(localStorage.getItem('userData')));
+console.log(userData);
 const inputEmpty = document.querySelector('.input--Empty--text');
 
 rowText = `
@@ -18,12 +29,19 @@ rowText = `
 
         </div>`;
 
+console.log(userData);
+
+btn.addEventListener('click', saveData);
+
 export function remDan() {
   inputEmpty.classList.remove('flex');
   inputEmpty.classList.add('hidden');
 }
-
 function saveData() {
+  let stuName = document.querySelector('.name').value;
+  let course = document.querySelector('.course').value;
+  let score = document.querySelector('.score').value;
+
   if (
     document.querySelector('.name').value === '' ||
     document.querySelector('.course').value === '' ||
@@ -34,15 +52,28 @@ function saveData() {
 
     return 0;
   }
+  // userData = '';
+  // Retrieve existing data from local storage and parse it to an array
+  // userData = JSON.parse(localStorage.getItem('userData')) || [];
 
-  remDan();
-
-  let stuName = document.querySelector('.name').value;
-  let course = document.querySelector('.course').value;
-  let score = document.querySelector('.score').value;
+  console.log(userData);
+  // Add new data to the array
   userData.push({ stuName, course, score });
-  table.innerHTML = '';
 
+  // Save updated array back to local storage as a JSON string
+  localStorage.setItem('userData', JSON.stringify(userData));
+
+  alert('Data saved!');
+
+  rowText = `
+  <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
+          <p class="w-36">Student Number</p>
+          <p class="w-36">Student Name</p>
+          <p class="w-36">Course Subject</p>
+          <p class="w-36">Score</p>
+          <p class="w-36">&nbsp;</p>
+
+        </div>`;
   createRow();
 }
 export function createRow() {
@@ -59,7 +90,7 @@ export function createRow() {
     addRow(i);
   });
   table.innerHTML = '';
-
+  console.log(rowText);
   table.insertAdjacentHTML('beforeend', rowText);
 }
 
@@ -89,5 +120,4 @@ function addRow(index) {
   document.querySelector('.score').value = '';
   return rowText;
 }
-
 export default userData;

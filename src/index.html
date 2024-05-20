@@ -37,9 +37,15 @@
           class="score bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
         />
         <button
-          class="btn bg-midGreen px-8 h-8 text-white font-poppins rounded"
+          class="btn bg-midGreen px-4 h-8 text-white font-poppins rounded"
         >
           add
+        </button>
+        <button
+          class="clearData bg-red-500 px-4 h-8 text-white font-poppins rounded"
+          onclick="clearData()"
+        >
+          removeAll
         </button>
 
         <!-- <button class="rem bg-midGreen px-8 h-8 text-white
@@ -107,17 +113,29 @@
 
     <script type="module">
       import addRow from './../public/js/addRow.js';
+
       import { remDan } from './../public/js/addRow.js';
       window.remDan = remDan;
-      // const {
+      // import { remDan } from './../public/js/addRow.js';
+      // window.remDan = remDan;
+
+      // import {
       //   openDeleteModal,
       //   cancelDlt,
-      // } = require('./../public/js/openDeleteModal.js');
-      // import openDeleteModal from './../public/js/openDeleteModal.js';
-      // window.openDeleteModal = openDeleteModal;
+      //   remove,
+      // } from './../public/js/openDeleteModal.js';
 
-      // import cancelDlt from './../public/js/openDeleteModal.js';
       // window.cancelDlt = cancelDlt;
+      // window.openDeleteModal = openDeleteModal;
+      // window.remove = remove;
+
+      // import { editFunc, cancel, done } from './../public/js/editFunc.js';
+      // window.editFunc = editFunc;
+      // window.cancel = cancel;
+      // window.done = done;
+
+      import { clearData } from './../public/js/removeLocal.js';
+      window.clearData = clearData;
 
       import {
         openDeleteModal,

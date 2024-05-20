@@ -38,15 +38,11 @@ function saveData() {
             <p class="w-36">Course Subject</p>
             <p class="w-36">Score</p>
             <p class="w-36">&nbsp;</p>
-            
+
           </div>`;
   createRow();
 }
 
-function remDan() {
-  inputEmpty.classList.remove('flex');
-  inputEmpty.classList.add('hidden');
-}
 const createRow = function () {
   userData.forEach((data, i) => {
     addRow(i);

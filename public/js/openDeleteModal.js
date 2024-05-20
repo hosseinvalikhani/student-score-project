@@ -56,10 +56,11 @@ export function remove() {
 
   const updatedUserData = part1.concat(part2);
   console.log(updatedUserData);
-
   // Assuming userData is an array and modifying its contents directly
   userData.length = 0; // Clear the original array
   userData.push(...updatedUserData);
+  localStorage.setItem('userData', JSON.stringify(userData));
+
   console.log(userData);
 
   table.innerHTML = '';
