@@ -1,6 +1,5 @@
-import { arrayData } from './removeLocal.js';
-console.log(arrayData.userData);
-
+// import { arrayData } from './removeLocal.js';
+// console.log('array data imported and its :', userData);
 let rowText = '';
 
 // btn.addEventListener('click', addRow);
@@ -9,14 +8,60 @@ const btn = document.querySelector('.btn');
 const table = document.querySelector('.myTab');
 
 let userData = [];
-console.log(localStorage.userData);
-if (JSON.parse(localStorage.getItem('userData'))) {
-  userData = JSON.parse(localStorage.getItem('userData'));
-  createRow();
+// setTimeout(() => console.log(userData), 12000);
+
+// if (JSON.parse(localStorage.getItem('userData'))) {
+//   getData();
+//   createRow();
+// }
+
+// export function localData(data) {
+//   // localStorage.setItem('userData', JSON.stringify(data));
+//   setTimeout(() => localStorage.setItem('userData', JSON.stringify(data)), 0);
+// }
+// export function getData() {
+//   // userData = JSON.parse(localStorage.getItem('userData'));
+
+//   setTimeout(() => {
+//     userData = JSON.parse(localStorage.getItem('userData'));
+//     console.log(userData);
+//   }, 0);
+// }
+async function init() {
+  if (JSON.parse(localStorage.getItem('userData'))) {
+    await getData();
+    createRow();
+    console.log('init function');
+  }
+  if (!JSON.parse(localStorage.getItem('userData'))) {
+    userData.length = 0;
+    console.log('user data is', userData);
+  }
 }
 
-console.log(JSON.parse(localStorage.getItem('userData')));
-console.log(userData);
+await init();
+
+export async function localData(data) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      localStorage.setItem('userData', JSON.stringify(data));
+      resolve();
+    }, 1000);
+  });
+}
+
+export async function getData() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      userData = JSON.parse(localStorage.getItem('userData'));
+      console.log(userData);
+      resolve(userData);
+    }, 1000);
+  });
+}
+
+// console.log(JSON.parse(localStorage.getItem('userData')));
+// console.log(userData);
 const inputEmpty = document.querySelector('.input--Empty--text');
 
 rowText = `
@@ -47,8 +92,7 @@ function saveData() {
     document.querySelector('.course').value === '' ||
     document.querySelector('.score').value === ''
   ) {
-    inputEmpty.classList.remove('hidden');
-    inputEmpty.classList.add('flex');
+    alert('fill all input');
 
     return 0;
   }
@@ -61,7 +105,7 @@ function saveData() {
   userData.push({ stuName, course, score });
 
   // Save updated array back to local storage as a JSON string
-  localStorage.setItem('userData', JSON.stringify(userData));
+  localData(userData);
 
   alert('Data saved!');
 
@@ -77,6 +121,7 @@ function saveData() {
   createRow();
 }
 export function createRow() {
+  console.log('create ROW CHECKED!', userData);
   rowText = `
   <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
           <p class="w-36">Student Number</p>
@@ -90,11 +135,15 @@ export function createRow() {
     addRow(i);
   });
   table.innerHTML = '';
-  console.log(rowText);
+  // console.log(rowText);
   table.insertAdjacentHTML('beforeend', rowText);
 }
 
 function addRow(index) {
+  console.log('ADD ROW Called');
+  console.log('in add row user data is : ', userData);
+  // console.log('in add row user data is : ', arrayData.userData);
+
   rowText += `<div class="row flex items-center px-4 rounded-md gap-8 h-12 min-h-12 backColor mt-2 myShadow"
   data-row="${index + 1}" id="row${index + 1}"
   >

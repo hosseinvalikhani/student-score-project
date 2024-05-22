@@ -1,5 +1,5 @@
 import userData from './addRow.js';
-import { createRow } from './addRow.js';
+import { createRow, localData } from './addRow.js';
 
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
@@ -35,7 +35,8 @@ export function done() {
   // Assuming userData is an array and modifying its contents directly
   userData.length = 0; // Clear the original array
   userData.push(...updatedUserData);
-  localStorage.setItem('userData', JSON.stringify(userData));
+  // localStorage.setItem('userData', JSON.stringify(userData));
+  localData(userData);
   console.log(userData);
   document.querySelector('.nameModal').value = '';
   document.querySelector('.courseModal').value = '';

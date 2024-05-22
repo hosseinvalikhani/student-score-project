@@ -12,6 +12,7 @@ export function clearData() {
   table.innerHTML = '';
   userData.length = 0;
   console.log(userData);
+
   createRow();
 }
 

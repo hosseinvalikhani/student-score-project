@@ -1,5 +1,6 @@
 import userData from './addRow.js';
-import { createRow } from './addRow.js';
+import { createRow, localData } from './addRow.js';
+
 const modalDlt = document.querySelector('.modal--delete');
 const overlay = document.querySelector('.overlay');
 let idNumber;
@@ -59,7 +60,7 @@ export function remove() {
   // Assuming userData is an array and modifying its contents directly
   userData.length = 0; // Clear the original array
   userData.push(...updatedUserData);
-  localStorage.setItem('userData', JSON.stringify(userData));
+  localData(userData);
 
   console.log(userData);
 
