@@ -1,13 +1,29 @@
-// import { arrayData } from './removeLocal.js';
-// console.log('array data imported and its :', userData);
+import { getData, localData, userData } from './allFunctionModule.js';
+
+// console.log('get data:', getData);
 let rowText = '';
 
 // btn.addEventListener('click', addRow);
 
 const btn = document.querySelector('.btn');
 const table = document.querySelector('.myTab');
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const modalDlt = document.querySelector('.modal--delete');
 
-let userData = [];
+overlay.addEventListener('click', () => {
+  modal.classList.remove('block');
+  modal.classList.add('hidden');
+
+  overlay.classList.remove('block');
+  overlay.classList.add('hidden');
+
+  modalDlt.classList.remove('flex');
+  modalDlt.classList.add('hidden');
+});
+
+// let userData = [];
+
 // setTimeout(() => console.log(userData), 12000);
 
 // if (JSON.parse(localStorage.getItem('userData'))) {
@@ -29,36 +45,36 @@ let userData = [];
 // }
 async function init() {
   if (JSON.parse(localStorage.getItem('userData'))) {
-    await getData();
+    const data = await getData();
+    console.log('my get data is:', data);
     createRow();
-    console.log('init function');
   }
-  if (!JSON.parse(localStorage.getItem('userData'))) {
-    userData.length = 0;
-    console.log('user data is', userData);
-  }
+  // if (!JSON.parse(localStorage.getItem('userData'))) {
+  //   userData.length = 0;
+  //   console.log('user data is', userData);
+  // }
 }
 
 await init();
 
-export async function localData(data) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      localStorage.setItem('userData', JSON.stringify(data));
-      resolve();
-    }, 1000);
-  });
-}
+// export async function localData(data) {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       localStorage.setItem('userData', JSON.stringify(data));
+//       resolve();
+//     }, 1000);
+//   });
+// }
 
-export async function getData() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      userData = JSON.parse(localStorage.getItem('userData'));
-      console.log(userData);
-      resolve(userData);
-    }, 1000);
-  });
-}
+// export async function getData() {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       userData = JSON.parse(localStorage.getItem('userData'));
+//       console.log(userData);
+//       resolve(userData);
+//     }, 1000);
+//   });
+// }
 
 // console.log(JSON.parse(localStorage.getItem('userData')));
 // console.log(userData);
@@ -74,14 +90,15 @@ rowText = `
 
         </div>`;
 
-console.log(userData);
-
 btn.addEventListener('click', saveData);
 
 export function remDan() {
   inputEmpty.classList.remove('flex');
   inputEmpty.classList.add('hidden');
 }
+
+// const stuArrays = userData.map(stu => Object.values(stu));
+// console.log('student array:', stuArrays);
 function saveData() {
   let stuName = document.querySelector('.name').value;
   let course = document.querySelector('.course').value;
@@ -100,7 +117,6 @@ function saveData() {
   // Retrieve existing data from local storage and parse it to an array
   // userData = JSON.parse(localStorage.getItem('userData')) || [];
 
-  console.log(userData);
   // Add new data to the array
   userData.push({ stuName, course, score });
 
@@ -120,8 +136,8 @@ function saveData() {
         </div>`;
   createRow();
 }
+
 export function createRow() {
-  console.log('create ROW CHECKED!', userData);
   rowText = `
   <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
           <p class="w-36">Student Number</p>
@@ -131,6 +147,8 @@ export function createRow() {
           <p class="w-36">&nbsp;</p>
           
         </div>`;
+
+  // userData.slice((pageNumber - 1) * 10, pageNumber*10);
   userData.forEach((data, i) => {
     addRow(i);
   });
@@ -140,8 +158,6 @@ export function createRow() {
 }
 
 function addRow(index) {
-  console.log('ADD ROW Called');
-  console.log('in add row user data is : ', userData);
   // console.log('in add row user data is : ', arrayData.userData);
 
   rowText += `<div class="row flex items-center px-4 rounded-md gap-8 h-12 min-h-12 backColor mt-2 myShadow"

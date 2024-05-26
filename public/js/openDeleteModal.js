@@ -1,5 +1,6 @@
 import userData from './addRow.js';
-import { createRow, localData } from './addRow.js';
+import { createRow } from './addRow.js';
+import { deleteLocalItem, getData, localData } from './allFunctionModule.js';
 
 const modalDlt = document.querySelector('.modal--delete');
 const overlay = document.querySelector('.overlay');
@@ -46,31 +47,34 @@ export function cancelDlt() {
   overlay.classList.add('hidden');
 }
 
-export function remove() {
-  const count = userData.length;
-  console.log(count);
+export async function remove() {
+  setTimeout(() => {
+    const count = userData.length;
+    console.log(count);
 
-  const part1 = userData.slice(0, idNumber - 1);
-  console.log(part1);
-  const part2 = userData.slice(idNumber, count);
-  console.log(part2);
+    const part1 = userData.slice(0, idNumber - 1);
+    console.log(part1);
+    const part2 = userData.slice(idNumber, count);
+    console.log(part2);
 
-  const updatedUserData = part1.concat(part2);
-  console.log(updatedUserData);
-  // Assuming userData is an array and modifying its contents directly
-  userData.length = 0; // Clear the original array
-  userData.push(...updatedUserData);
-  localData(userData);
+    const updatedUserData = part1.concat(part2);
+    console.log(updatedUserData);
+    // Assuming userData is an array and modifying its contents directly
+    userData.length = 0; // Clear the original array
+    userData.push(...updatedUserData);
+    // localData(userData);
+    deleteLocalItem(idNumber);
 
-  console.log(userData);
+    console.log(userData);
 
-  table.innerHTML = '';
-  console.log(table);
+    table.innerHTML = '';
+    console.log(table);
 
-  createRow();
-  modalDlt.classList.remove('flex');
-  modalDlt.classList.add('hidden');
+    createRow();
+    modalDlt.classList.remove('flex');
+    modalDlt.classList.add('hidden');
 
-  overlay.classList.remove('block');
-  overlay.classList.add('hidden');
+    overlay.classList.remove('block');
+    overlay.classList.add('hidden');
+  }, 1000);
 }

@@ -17,6 +17,9 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/jspdf"></script>
+    <script src="https://unpkg.com/jspdf-autotable"></script>
   </head>
   <body class="font-poppins text-base">
     <div class="flex flex-col items-center justify-center py-8">
@@ -50,6 +53,20 @@
 
         <!-- <button class="rem bg-midGreen px-8 h-8 text-white
         font-poppins rounded">remove</button> -->
+      </div>
+      <div class="flex bg-slate-500 mt-4">
+        <button
+          id="download-pdf"
+          class="bg-slate-600 px-4 h-8 text-white font-poppins rounded"
+        >
+          Download PDF
+        </button>
+        <button
+          id="download-csv"
+          class="bg-green-500 px-4 h-8 text-white font-poppins rounded"
+        >
+          Download CSV
+        </button>
       </div>
       <div
         class="input--Empty--text hidden justify-between w-96 bg-red-400 mt-8 p-4"
@@ -92,7 +109,7 @@
 
     <div class="modal--delete hidden z-20"></div>
     <div
-      onclick=""
+      onclick="removeOverlay"
       class="overlay hidden absolute top-0 left-0 w-full h-full bg-[rgba(0, 0, 0, 0.6)] backdrop-blur-sm z-10"
     ></div>
 
@@ -108,34 +125,21 @@
         <p class="w-36">&nbsp;</p>
       </div>
     </div>
-
+    <div class="pagination flex items-center justify-center mt-2 gap-2">
+      <button class="bg-blue-300 w-8 h-8">1</button>
+      <button class="bg-blue-300 w-8 h-8">2</button>
+    </div>
     <!-- <script src="./../public/js/script.js" defer></script> -->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
+
+    <script></script>
     <script type="module">
       import addRow from './../public/js/addRow.js';
-
       import { remDan } from './../public/js/addRow.js';
       window.remDan = remDan;
-      // import { remDan } from './../public/js/addRow.js';
-      // window.remDan = remDan;
-
-      // import {
-      //   openDeleteModal,
-      //   cancelDlt,
-      //   remove,
-      // } from './../public/js/openDeleteModal.js';
-
-      // window.cancelDlt = cancelDlt;
-      // window.openDeleteModal = openDeleteModal;
-      // window.remove = remove;
-
-      // import { editFunc, cancel, done } from './../public/js/editFunc.js';
-      // window.editFunc = editFunc;
-      // window.cancel = cancel;
-      // window.done = done;
-
-      import { clearData } from './../public/js/removeLocal.js';
-      window.clearData = clearData;
+      import { clearData } from './../public/js/allFunctionModule.js';
+      window.clearData = await clearData;
 
       import {
         openDeleteModal,
@@ -145,12 +149,16 @@
 
       window.cancelDlt = cancelDlt;
       window.openDeleteModal = openDeleteModal;
-      window.remove = remove;
+      window.remove = await remove;
 
       import { editFunc, cancel, done } from './../public/js/editFunc.js';
       window.editFunc = editFunc;
       window.cancel = cancel;
       window.done = done;
+
+      import { downloadPDF, downloadCSV } from './../public/js/main.js';
+      const downloadPdfBtn = document.querySelector('#download-pdf');
+      const downloadCsvBtn = document.querySelector('#download-csv');
     </script>
   </body>
 </html>
