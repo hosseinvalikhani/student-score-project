@@ -246,10 +246,10 @@ function Hider() {
   overlay.classList.add('hidden');
 }
 overlay.addEventListener('click', () => {
-  modal.classList.remove('block');
+  modal.classList.remove('flex');
   modal.classList.add('hidden');
 
-  overlay.classList.remove('block');
+  overlay.classList.remove('flex');
   overlay.classList.add('hidden');
 
   modalDlt.classList.remove('flex');

@@ -36,7 +36,7 @@
   transform: rotate(90deg);
 }
 
-.open .hamburger-top {
+/* .open .hamburger-top {
   transform: rotate(45deg) translateY(6px) translateX(6px);
 }
 
@@ -46,7 +46,7 @@
 
 .open .hamburger-bottom {
   transform: rotate(-45deg) translateY(6px) translateX(-6px);
-}
+} */
 
 .btn-open {
   transform: rotate(45deg);
@@ -96,7 +96,7 @@
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
 }
 
-.overlay {
+/* .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -105,7 +105,7 @@
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3px);
   z-index: 5;
-}
+} */
 
 .modal--delete {
   position: absolute;
@@ -131,9 +131,4 @@ input[type='number'] {
 
 .bgRed {
   background: red;
-}
-
-.myShadow:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  background-color: #00c9a7;
 }

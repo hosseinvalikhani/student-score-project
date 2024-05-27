@@ -22,7 +22,7 @@
     <script src="https://unpkg.com/jspdf-autotable"></script>
   </head>
   <body class="font-poppins text-base">
-    <div class="flex flex-col items-center justify-center py-8">
+    <div class="flex flex-col items-center justify-center py-4">
       <div class="flex gap-4">
         <input
           type="text"
@@ -50,73 +50,75 @@
         >
           removeAll
         </button>
-
+        <div class="flex items-start justify-center bg-slate-500">
+          <button
+            id="download-pdf"
+            class="bg-slate-600 px-4 h-8 text-white font-poppins rounded"
+          >
+            Download PDF
+          </button>
+          <button
+            id="download-csv"
+            class="bg-green-500 px-4 h-8 text-white font-poppins rounded"
+          >
+            Download CSV
+          </button>
+        </div>
         <!-- <button class="rem bg-midGreen px-8 h-8 text-white
         font-poppins rounded">remove</button> -->
       </div>
-      <div class="flex bg-slate-500 mt-4">
-        <button
-          id="download-pdf"
-          class="bg-slate-600 px-4 h-8 text-white font-poppins rounded"
-        >
-          Download PDF
-        </button>
-        <button
-          id="download-csv"
-          class="bg-green-500 px-4 h-8 text-white font-poppins rounded"
-        >
-          Download CSV
-        </button>
-      </div>
-      <div
+      <div class="flex items-start justify-center gap-2 mt-2">
+        <div class="pagination flex items-center justify-center gap-2"></div>
+        <!-- <div
         class="input--Empty--text hidden justify-between w-96 bg-red-400 mt-8 p-4"
       >
         <p class="">fill all input</p>
         <button class="okBtn w-16 bg-blue-300" onclick="remDan()">ok</button>
+      </div> -->
       </div>
-    </div>
 
-    <div class="modal hidden z-20">
-      <button class="close-modal" onclick="cancel()">&times;</button>
-      <div class="flex flex-col gap-4">
+      <div class="modal hidden z-20">
+        <button class="close-modal" onclick="cancel()">&times;</button>
         <div class="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder=" Name"
-            class="nameModal bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
-          />
-          <input
-            type="text"
-            placeholder=" Course"
-            class="courseModal bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
-          />
-          <input
-            type="number"
-            placeholder=" Score"
-            class="scoreModal bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
-          />
-        </div>
-        <div class="mx-auto">
-          <button class="w-36 h-8 rounded-md bg-red-500" onclick="cancel()">
-            cancel
-          </button>
-          <button class="w-36 h-8 rounded-md bg-green-300" onclick="done()">
-            done
-          </button>
+          <div class="flex flex-col gap-4">
+            <input
+              type="text"
+              placeholder=" Name"
+              class="nameModal bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
+            />
+            <input
+              type="text"
+              placeholder=" Course"
+              class="courseModal bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
+            />
+            <input
+              type="number"
+              placeholder=" Score"
+              class="scoreModal bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
+            />
+          </div>
+          <div class="mx-auto">
+            <button class="w-36 h-8 rounded-md bg-red-500" onclick="cancel()">
+              cancel
+            </button>
+            <button class="w-36 h-8 rounded-md bg-green-300" onclick="done()">
+              done
+            </button>
+          </div>
         </div>
       </div>
+      <!-- <button class="bg-blue-300 w-8 h-8">1</button>
+      <button class="bg-blue-300 w-8 h-8">2</button> -->
     </div>
-
     <div class="modal--delete hidden z-20"></div>
     <div
-      onclick="removeOverlay"
-      class="overlay hidden absolute top-0 left-0 w-full h-full bg-[rgba(0, 0, 0, 0.6)] backdrop-blur-sm z-10"
+      class="overlay hidden fixed top-0 left-0 w-full h-full bg-[rgba(0, 0, 0, 0.6)] backdrop-blur-sm z-10"
     ></div>
 
-    <div class="myTab flex flex-col gap-2 items-center justify-center px-8">
+    <div class="myTab flex flex-col gap-1 items-center justify-center px-8">
       <div
         id="hirad"
-        class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen"
+        class="test flex items-center px-4 gap-2 h-12 border border-black bg-midGreen"
       >
         <p class="w-36">Student Number</p>
         <p class="w-36">Student Name</p>
@@ -124,11 +126,55 @@
         <p class="w-36">Score</p>
         <p class="w-36">&nbsp;</p>
       </div>
+
+      <!-- <div
+        class="row flex flex-col items-center rounded-md backColor mt-2"
+        data-row="${index + 1}"
+        id="row${index + 1}"
+      >
+        <div
+          class="row flex items-center px-4 rounded-md gap-8 h-10 backColor mt-2"
+        >
+          <p class="w-36">1</p>
+          <p class="w-36">hossein</p>
+          <button
+            id="1"
+            data-btn="1"
+            class="delBtn del-btn-${ index + 1 } w-16 bg-red-700"
+            onclick="openDeleteModal(this.button)"
+          >
+            delete
+          </button>
+          <button
+            id="${index + 1}"
+            data-btn="${
+index + 1
+}"
+            class="editBtn w-16 bg-blue-300"
+            onclick="editFunc(this)"
+          >
+            edit
+          </button>
+          <button
+            id="2"
+            data-btn="1"
+            class="w-36 bg-blue-400"
+            onclick="accToggle(this)"
+          >
+            Accardion
+          </button>
+        </div>
+
+        <div
+          class="accard--2 flex w-full h-10 items-center bg-blue-200 px-4 rounded-b-md"
+          id="accard--1"
+        >
+          <p class="w-36">jadi</p>
+          <p class="w-36">19</p>
+        </div>
+      </div> -->
     </div>
-    <div class="pagination flex items-center justify-center mt-2 gap-2">
-      <button class="bg-blue-300 w-8 h-8">1</button>
-      <button class="bg-blue-300 w-8 h-8">2</button>
-    </div>
+
     <!-- <script src="./../public/js/script.js" defer></script> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
@@ -136,8 +182,9 @@
     <script></script>
     <script type="module">
       import addRow from './../public/js/addRow.js';
-      import { remDan } from './../public/js/addRow.js';
+      import { remDan, goToPage } from './../public/js/addRow.js';
       window.remDan = remDan;
+      window.goToPage = goToPage;
       import { clearData } from './../public/js/allFunctionModule.js';
       window.clearData = await clearData;
 
@@ -156,9 +203,15 @@
       window.cancel = cancel;
       window.done = done;
 
-      import { downloadPDF, downloadCSV } from './../public/js/main.js';
+      import {
+        downloadPDF,
+        downloadCSV,
+        accToggle,
+      } from './../public/js/main.js';
       const downloadPdfBtn = document.querySelector('#download-pdf');
       const downloadCsvBtn = document.querySelector('#download-csv');
+      window.accToggle = accToggle;
+      // window.accToggle = accToggle();
     </script>
   </body>
 </html>

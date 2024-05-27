@@ -57,7 +57,7 @@ export async function downloadPDF() {
     startY: 20,
     theme: 'grid', // You can change the theme to 'plain', 'grid', or 'striped'
     headStyles: { fillColor: [22, 160, 133] }, // Change header color
-    bodyStyles: { fillColor: [255, 255, 255] }, // Change body color
+    bodyStyles: { fillColor: [171, 219, 227] }, // Change body color
     alternateRowStyles: { fillColor: [240, 240, 240] }, // Change alternate row color
   });
 
@@ -79,6 +79,22 @@ export function downloadCSV() {
   link.click();
   document.body.removeChild(link);
 }
-console.log(window.jsPDF);
+// console.log(window.jsPDF);
 downloadPdfBtn.addEventListener('click', await downloadPDF);
 downloadCsvBtn.addEventListener('click', downloadCSV);
+
+export function accToggle(button) {
+  // accBtn = button;
+  let x = button.id;
+  console.log('button of index clicked!', x);
+  console.log('my this is:', button);
+  console.log('checked', button);
+
+  const accFirst = document.querySelector(`.accard--${x}`);
+  const accFirst2 = document.querySelector('#accard--1');
+
+  console.log('acc class list:', accFirst.classList);
+
+  accFirst.classList.toggle('flex');
+  accFirst.classList.toggle('hidden');
+}

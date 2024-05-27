@@ -8,14 +8,14 @@ export async function getData() {
       const storedData = localStorage.getItem('userData');
       if (storedData) {
         const updatedUserData = JSON.parse(storedData);
-        console.log('my update user data is', updatedUserData);
+        // console.log('my update user data is', updatedUserData);
         userData.length = 0; // Clear the original array
         userData.push(...updatedUserData);
         resolve(userData);
       } else {
         resolve([]);
       }
-    }, 1000);
+    }, 0);
   });
 }
 
@@ -24,13 +24,15 @@ export async function localData(data) {
     setTimeout(() => {
       localStorage.setItem('userData', JSON.stringify(data));
       resolve();
-    }, 1000);
+    }, 0);
   });
 }
 
 export async function clearData() {
   localStorage.removeItem('userData');
   alert('Data cleared!');
+  const pagination = document.querySelector('.pagination');
+  pagination.innerHTML = '';
   table.innerHTML = '';
   userData.length = 0;
   createRow();
@@ -54,7 +56,7 @@ export async function deleteLocalItem(idNumber) {
       console.log('update data is:', updatedUserData);
       localStorage.setItem('userData', JSON.stringify(updatedUserData));
       resolve();
-    }, 1000);
+    }, 0);
   });
 }
 
@@ -77,7 +79,7 @@ export async function editLocalItem(number, stuName, course, score) {
         const updatedUserData = part1.concat(part2);
         console.log('update data is:', updatedUserData);
         localStorage.setItem('userData', JSON.stringify(updatedUserData));
-      }, 1000);
+      }, 0);
     });
   } catch (error) {
     console.error('check your code', error);

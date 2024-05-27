@@ -1,5 +1,5 @@
 import userData from './addRow.js';
-import { createRow } from './addRow.js';
+import { createRow, createPagination } from './addRow.js';
 import { deleteLocalItem, getData, localData } from './allFunctionModule.js';
 
 const modalDlt = document.querySelector('.modal--delete');
@@ -71,6 +71,7 @@ export async function remove() {
     console.log(table);
 
     createRow();
+    createPagination();
     modalDlt.classList.remove('flex');
     modalDlt.classList.add('hidden');
 

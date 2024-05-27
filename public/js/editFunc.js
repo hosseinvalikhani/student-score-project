@@ -21,17 +21,27 @@ export function done() {
   let stuName = document.querySelector('.nameModal').value;
   let course = document.querySelector('.courseModal').value;
   let score = document.querySelector('.scoreModal').value;
+  console.log(
+    stuName === userData[number - 1].stuName ||
+      course === userData[number - 1].course ||
+      score === userData[number - 1].score
+  );
+  if (
+    stuName === userData[number - 1].stuName &&
+    course === userData[number - 1].course &&
+    score === userData[number - 1].score
+  ) {
+    alert('Nothing Changed! please edit data');
+    return;
+  }
   const count = userData.length;
-  console.log(count);
 
   const part1 = userData.slice(0, number - 1);
-  console.log(part1);
+
   part1.push({ stuName, course, score });
   const part2 = userData.slice(number, count);
-  console.log(part2);
 
   const updatedUserData = part1.concat(part2);
-  console.log(updatedUserData);
 
   // Assuming userData is an array and modifying its contents directly
   userData.length = 0; // Clear the original array
@@ -40,7 +50,7 @@ export function done() {
   // localData(userData);
   editLocalItem(number, stuName, course, score);
   // editLocalItem(number, stuName, course, 'ali');
-  console.log(userData);
+
   document.querySelector('.nameModal').value = '';
   document.querySelector('.courseModal').value = '';
   document.querySelector('.scoreModal').value = '';
