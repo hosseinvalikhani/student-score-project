@@ -210,6 +210,8 @@ index + 1
       } from './../public/js/main.js';
       const downloadPdfBtn = document.querySelector('#download-pdf');
       const downloadCsvBtn = document.querySelector('#download-csv');
+      downloadPdfBtn.addEventListener('click', await downloadPDF);
+      downloadCsvBtn.addEventListener('click', downloadCSV);
       window.accToggle = accToggle;
       // window.accToggle = accToggle();
     </script>
