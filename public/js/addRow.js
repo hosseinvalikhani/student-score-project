@@ -1,15 +1,17 @@
 import { getData, localData, userData } from './allFunctionModule.js';
 
+// Initialization of pagination variables
 let pageNumber = 0;
-
 let rowText = '';
 
+// DOM element selectors for interacting with the HTML document
 const btn = document.querySelector('.btn');
 const table = document.querySelector('.myTab');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const modalDlt = document.querySelector('.modal--delete');
 
+// Overlay click event handler to hide modal elements
 overlay.addEventListener('click', () => {
   modal.classList.remove('block');
   modal.classList.add('hidden');
@@ -21,17 +23,18 @@ overlay.addEventListener('click', () => {
   modalDlt.classList.add('hidden');
 });
 
+// Function to update active page number and store in local storage
 function activePage() {
   z = 1;
   pageNumber = Math.floor((userData.length - 1) / 10);
   localStorage.setItem('page', JSON.stringify(pageNumber));
-
-  console.log('page number is:', pageNumber);
 }
 
 const pagination = document.querySelector('.pagination');
 
 let numberOfPage;
+
+// Function to create pagination buttons based on the number of pages
 export function createPagination() {
   pagination.innerHTML = '';
   let buttons = '';
@@ -50,6 +53,7 @@ export function createPagination() {
 createPagination();
 
 let z;
+// Function to navigate to a specific page and update table contents accordingly
 export function goToPage(button) {
   rowText = `
   <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
@@ -65,32 +69,21 @@ export function goToPage(button) {
   console.log('my button id is:', button.id);
   pageNumber = button.id - 1;
   localStorage.setItem('page', JSON.stringify(pageNumber));
-  console.log('my page number is:', pageNumber);
-  // pageNumber = button ? button.id - 1 : Math.floor((userData.length - 1) / 10);
-  console.log('my page number is:', pageNumber);
-
-  console.log('my user data is:', userData);
-  // createRow();
-  console.log(
-    'my user data slice is:',
-    userData.slice(pageNumber * 10, (pageNumber + 1) * 10)
-  );
   userData.slice(pageNumber * 10, (pageNumber + 1) * 10).forEach((data, i) => {
     addRow(pageNumber * 10 + i);
   });
   table.innerHTML = '';
-  // console.log(rowText);
+
   table.insertAdjacentHTML('beforeend', rowText);
 }
+
+// Initial setup function to fetch data and configure initial view
 async function init() {
   if (JSON.parse(localStorage.getItem('userData'))) {
     const data = await getData();
 
-    // console.log('my get data is:', data);
-
-    // activePage();
     pageNumber = JSON.parse(localStorage.getItem('page'));
-    console.log('last page number is:', pageNumber);
+
     createPagination();
     createRow();
   }
@@ -112,11 +105,7 @@ rowText = `
 
 btn.addEventListener('click', saveData);
 
-export function remDan() {
-  inputEmpty.classList.remove('flex');
-  inputEmpty.classList.add('hidden');
-}
-
+// Function to validate input fields and save new data entry
 function saveData() {
   let stuName = document.querySelector('.name').value;
   let course = document.querySelector('.course').value;
@@ -131,8 +120,7 @@ function saveData() {
 
     return 0;
   }
-
-  userData.push({ stuName, course, score });
+  // Update local storage and refresh table view
 
   // Save updated array back to local storage as a JSON string
   localData(userData);
@@ -153,6 +141,7 @@ function saveData() {
   createRow();
 }
 
+// Function to construct and display rows based on current data
 export function createRow() {
   rowText = `
   <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
@@ -163,17 +152,7 @@ export function createRow() {
           <p class="w-36">&nbsp;</p>
           
         </div>`;
-  console.log('z number is:', z);
-  // if ((z = 1)) {
-  //   activePage();
-  // }
-  console.log('z number is:', z);
 
-  console.log('my user data is:', userData);
-  console.log(
-    'my user data slice is:',
-    userData.slice(pageNumber * 10, (pageNumber + 1) * 10)
-  );
   userData.slice(pageNumber * 10, (pageNumber + 1) * 10).forEach((data, i) => {
     addRow(pageNumber * 10 + i);
   });
@@ -184,9 +163,8 @@ export function createRow() {
   createPagination();
 }
 
+// Function to dynamically add rows to the table
 function addRow(index) {
-  // console.log('in add row user data is : ', arrayData.userData);
-
   rowText += `<div
   class="row flex flex-col items-center rounded-md backColor mt-2"
   data-row="${index + 1}"
@@ -242,4 +220,6 @@ function addRow(index) {
   document.querySelector('.score').value = '';
   return rowText;
 }
+
+// Export userData array for potential external use
 export default userData;
