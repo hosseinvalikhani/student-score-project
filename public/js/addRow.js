@@ -1,43 +1,74 @@
-import { getData, localData, userData } from './allFunctionModule.js';
-
-// Initialization of pagination variables
+import { getData, addToDataBase } from "./allFunctionModule.js";
+import userData from "./allFunctionModule.js";
+// import userData from "./script.js";
 let pageNumber = 0;
-let rowText = '';
 
-// DOM element selectors for interacting with the HTML document
-const btn = document.querySelector('.btn');
-const table = document.querySelector('.myTab');
-const modal = document.querySelector('.modal');
-const overlay = document.querySelector('.overlay');
-const modalDlt = document.querySelector('.modal--delete');
+let r;
 
-// Overlay click event handler to hide modal elements
-overlay.addEventListener('click', () => {
-  modal.classList.remove('block');
-  modal.classList.add('hidden');
+let rowText = "";
 
-  overlay.classList.remove('block');
-  overlay.classList.add('hidden');
+const apiUrl = "http://localhost:3000/posts";
+const idGen = "http://localhost:3000/idGenerator";
 
-  modalDlt.classList.remove('flex');
-  modalDlt.classList.add('hidden');
-});
+const handleResponse = async (response) => {
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  return response.json();
+};
+let indexData = 1;
+// fetch id to db
+function databaseGet() {
+  fetch(idGen)
+    .then(handleResponse)
+    .then((data) => {
+      console.log("data length is:", data.length);
+      indexData = data.length;
+      console.log("index data is:", indexData);
+    });
+}
+databaseGet();
 
-// Function to update active page number and store in local storage
-function activePage() {
-  z = 1;
-  pageNumber = Math.floor((userData.length - 1) / 10);
-  localStorage.setItem('page', JSON.stringify(pageNumber));
+function idGenerator() {
+  fetch(idGen, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id: 0 }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((newUserData) => {});
 }
 
-const pagination = document.querySelector('.pagination');
+const btn = document.querySelector(".btn");
+const table = document.querySelector(".myTab");
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const modalDlt = document.querySelector(".modal--delete");
+
+overlay.addEventListener("click", () => {
+  modal.classList.remove("block");
+  modal.classList.add("hidden");
+
+  overlay.classList.remove("block");
+  overlay.classList.add("hidden");
+
+  modalDlt.classList.remove("flex");
+  modalDlt.classList.add("hidden");
+});
+
+const pagination = document.querySelector(".pagination");
 
 let numberOfPage;
-
-// Function to create pagination buttons based on the number of pages
 export function createPagination() {
-  pagination.innerHTML = '';
-  let buttons = '';
+  pagination.innerHTML = "";
+  let buttons = "";
   numberOfPage = Math.floor((userData.length - 1) / 10);
   for (let i = 0; i < numberOfPage + 1; i++) {
     if (userData.length === 0) {
@@ -47,13 +78,12 @@ export function createPagination() {
       i + 1
     }' onclick="goToPage(this)" >${i + 1}</button>`;
   }
-  pagination.insertAdjacentHTML('beforeend', buttons);
+  pagination.insertAdjacentHTML("beforeend", buttons);
 }
 
 createPagination();
 
 let z;
-// Function to navigate to a specific page and update table contents accordingly
 export function goToPage(button) {
   rowText = `
   <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
@@ -65,33 +95,46 @@ export function goToPage(button) {
           
         </div>`;
 
-  console.log('my button is:', button);
-  console.log('my button id is:', button.id);
   pageNumber = button.id - 1;
-  localStorage.setItem('page', JSON.stringify(pageNumber));
+  localStorage.setItem("page", JSON.stringify(pageNumber));
+
+  // pageNumber = button ? button.id - 1 : Math.floor((userData.length - 1) / 10);
+  // createRow();
+
   userData.slice(pageNumber * 10, (pageNumber + 1) * 10).forEach((data, i) => {
     addRow(pageNumber * 10 + i);
   });
-  table.innerHTML = '';
+  table.innerHTML = "";
 
-  table.insertAdjacentHTML('beforeend', rowText);
+  table.insertAdjacentHTML("beforeend", rowText);
 }
 
-// Initial setup function to fetch data and configure initial view
-async function init() {
-  if (JSON.parse(localStorage.getItem('userData'))) {
-    const data = await getData();
+function init() {
+  fetch(apiUrl)
+    .then(handleResponse)
+    .then((data) => {
+      const updatedUserData = data;
+      console.log("data is:", data);
 
-    pageNumber = JSON.parse(localStorage.getItem('page'));
+      userData.length = 0; // Clear the original array
+      userData.push(...updatedUserData);
 
-    createPagination();
-    createRow();
-  }
+      console.log("user data is:", userData);
+      pageNumber = JSON.parse(localStorage.getItem("page"));
+      createPagination();
+      createRow();
+    });
+  console.log("user data is:", userData);
 }
 
-await init();
+init();
 
-const inputEmpty = document.querySelector('.input--Empty--text');
+function activePage() {
+  z = 1;
+  pageNumber = Math.floor((userData.length - 1) / 10);
+  localStorage.setItem("page", JSON.stringify(pageNumber));
+}
+const inputEmpty = document.querySelector(".input--Empty--text");
 
 rowText = `
   <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
@@ -103,31 +146,62 @@ rowText = `
 
         </div>`;
 
-btn.addEventListener('click', saveData);
+btn.addEventListener("click", saveData);
 
-// Function to validate input fields and save new data entry
+export function remDan() {
+  inputEmpty.classList.remove("flex");
+  inputEmpty.classList.add("hidden");
+}
+
+function addData(indexData, stuName, course, score) {
+  fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: `${indexData}`,
+      stuName: `${stuName}`,
+      course: `${course}`,
+      score: `${score}`,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((newUserData) => {});
+}
+
 function saveData() {
-  let stuName = document.querySelector('.name').value;
-  let course = document.querySelector('.course').value;
-  let score = document.querySelector('.score').value;
+  let stuName = document.querySelector(".name").value;
+  let course = document.querySelector(".course").value;
+  let score = document.querySelector(".score").value;
 
   if (
-    document.querySelector('.name').value === '' ||
-    document.querySelector('.course').value === '' ||
-    document.querySelector('.score').value === ''
+    document.querySelector(".name").value === "" ||
+    document.querySelector(".course").value === "" ||
+    document.querySelector(".score").value === ""
   ) {
-    alert('fill all input');
+    alert("fill all input");
 
     return 0;
   }
-  // Update local storage and refresh table view
+
+  userData.push({ stuName, course, score });
 
   // Save updated array back to local storage as a JSON string
-  localData(userData);
+  // localData(userData);
+
+  addData(indexData, stuName, course, score);
+  idGenerator();
+
   if ((z = 1)) {
     activePage();
   }
-  alert('Data saved!');
+  alert("Data saved!");
 
   rowText = `
   <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
@@ -141,7 +215,6 @@ function saveData() {
   createRow();
 }
 
-// Function to construct and display rows based on current data
 export function createRow() {
   rowText = `
   <div class="test flex items-center px-4 gap-8 h-12 border border-black bg-midGreen">
@@ -156,14 +229,14 @@ export function createRow() {
   userData.slice(pageNumber * 10, (pageNumber + 1) * 10).forEach((data, i) => {
     addRow(pageNumber * 10 + i);
   });
-  table.innerHTML = '';
-  // console.log(rowText);
-  table.insertAdjacentHTML('beforeend', rowText);
-  console.log('create row user data is:', userData);
+
+  table.innerHTML = "";
+
+  table.insertAdjacentHTML("beforeend", rowText);
+
   createPagination();
 }
 
-// Function to dynamically add rows to the table
 function addRow(index) {
   rowText += `<div
   class="row flex flex-col items-center rounded-md backColor mt-2"
@@ -176,7 +249,8 @@ function addRow(index) {
     <p class="w-36">${userData[index].stuName}</p>
     <button
       id="${index + 1}"
-      data-btn="1"
+      
+      data-btn="${userData[index].id}"
       class="delBtn del-btn-${index + 1} w-16 bg-red-700"
       onclick="openDeleteModal(this)"
     >
@@ -184,7 +258,7 @@ function addRow(index) {
     </button>
     <button
       id="${index + 1}"
-      data-btn="${index + 1}"
+      data-btn="${userData[index].id}"
       class="editBtn w-16 bg-blue-300"
       onclick="editFunc(this)"
     >
@@ -215,11 +289,9 @@ function addRow(index) {
 </div>
 `;
 
-  document.querySelector('.name').value = '';
-  document.querySelector('.course').value = '';
-  document.querySelector('.score').value = '';
+  document.querySelector(".name").value = "";
+  document.querySelector(".course").value = "";
+  document.querySelector(".score").value = "";
   return rowText;
 }
-
-// Export userData array for potential external use
 export default userData;

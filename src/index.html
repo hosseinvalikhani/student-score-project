@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./../public/css/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
+    <!-- <link
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
+    /> -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
+    <!-- <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
-    />
+    /> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://unpkg.com/jspdf"></script>
     <script src="https://unpkg.com/jspdf-autotable"></script>
@@ -39,17 +39,27 @@
           placeholder=" Score"
           class="score bg-slate-300 border-black focus:bg-slate-50 rounded-md h-8"
         />
+
+        <!-- <button class="rem bg-midGreen px-8 h-8 text-white
+        font-poppins rounded">remove</button> -->
+      </div>
+      <div class="flex mt-2 gap-2">
         <button
           class="btn bg-midGreen px-4 h-8 text-white font-poppins rounded"
         >
           add
         </button>
-        <button
+        <!-- <button
+        class="btn-data bg-midGreen px-4 h-8 text-white font-poppins rounded"
+      >
+        add
+      </button> -->
+        <!-- <button
           class="clearData bg-red-500 px-4 h-8 text-white font-poppins rounded"
           onclick="clearData()"
         >
           removeAll
-        </button>
+        </button> -->
         <div class="flex items-start justify-center bg-slate-500">
           <button
             id="download-pdf"
@@ -64,12 +74,15 @@
             Download CSV
           </button>
         </div>
-        <!-- <button class="rem bg-midGreen px-8 h-8 text-white
-        font-poppins rounded">remove</button> -->
       </div>
       <div class="flex items-start justify-center gap-2 mt-2">
         <div class="pagination flex items-center justify-center gap-2"></div>
-
+        <!-- <div
+        class="input--Empty--text hidden justify-between w-96 bg-red-400 mt-8 p-4"
+      >
+        <p class="">fill all input</p>
+        <button class="okBtn w-16 bg-blue-300" onclick="remDan()">ok</button>
+      </div> -->
       </div>
 
       <div class="modal hidden z-20">
@@ -102,7 +115,8 @@
           </div>
         </div>
       </div>
-
+      <!-- <button class="bg-blue-300 w-8 h-8">1</button>
+      <button class="bg-blue-300 w-8 h-8">2</button> -->
     </div>
     <div class="modal--delete hidden z-20"></div>
     <div
@@ -121,6 +135,11 @@
         <p class="w-36">&nbsp;</p>
       </div>
 
+      <!-- <div
+        class="row flex flex-col items-center rounded-md backColor mt-2"
+        data-row="${index + 1}"
+        id="row${index + 1}"
+      >
         <div
           class="row flex items-center px-4 rounded-md gap-8 h-10 backColor mt-2"
         >
@@ -161,33 +180,31 @@ index + 1
           <p class="w-36">jadi</p>
           <p class="w-36">19</p>
         </div>
-      </div>
+      </div> -->
     </div>
-
-    <!-- <script src="./../public/js/script.js" defer></script> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
 
     <script></script>
     <script type="module">
-      import addRow from './../public/js/addRow.js';
-      import { goToPage } from './../public/js/addRow.js';
-
+      import addRow from "./../public/js/addRow.js";
+      import { remDan, goToPage } from "./../public/js/addRow.js";
+      window.remDan = remDan;
       window.goToPage = goToPage;
-      import { clearData } from './../public/js/allFunctionModule.js';
+      import { clearData } from "./../public/js/allFunctionModule.js";
       window.clearData = await clearData;
 
       import {
         openDeleteModal,
         cancelDlt,
         remove,
-      } from './../public/js/openDeleteModal.js';
+      } from "./../public/js/openDeleteModal.js";
 
       window.cancelDlt = cancelDlt;
       window.openDeleteModal = openDeleteModal;
-      window.remove = await remove;
+      window.remove = remove;
 
-      import { editFunc, cancel, done } from './../public/js/editFunc.js';
+      import { editFunc, cancel, done } from "./../public/js/editFunc.js";
       window.editFunc = editFunc;
       window.cancel = cancel;
       window.done = done;
@@ -196,11 +213,11 @@ index + 1
         downloadPDF,
         downloadCSV,
         accToggle,
-      } from './../public/js/main.js';
-      const downloadPdfBtn = document.querySelector('#download-pdf');
-      const downloadCsvBtn = document.querySelector('#download-csv');
-      downloadPdfBtn.addEventListener('click', await downloadPDF);
-      downloadCsvBtn.addEventListener('click', downloadCSV);
+      } from "./../public/js/main.js";
+      const downloadPdfBtn = document.querySelector("#download-pdf");
+      const downloadCsvBtn = document.querySelector("#download-csv");
+      downloadPdfBtn.addEventListener("click", await downloadPDF);
+      downloadCsvBtn.addEventListener("click", downloadCSV);
       window.accToggle = accToggle;
       // window.accToggle = accToggle();
     </script>

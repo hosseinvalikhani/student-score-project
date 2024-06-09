@@ -1,22 +1,40 @@
-// Importing necessary functions and data array from the 'allFunctionModule.js' file
-import { getData, userData } from './allFunctionModule.js';
+import { getData, userData } from "./allFunctionModule.js";
 
-// Selecting DOM elements for buttons used to trigger download actions
-const downloadPdfBtn = document.querySelector('#download-pdf');
-const downloadCsvBtn = document.querySelector('#download-csv');
+const downloadPdfBtn = document.querySelector("#download-pdf");
+const downloadCsvBtn = document.querySelector("#download-csv");
 
-// Function to download the user data as a PDF document
+// export async function downloadPDF() {
+//   const { jsPDF } = window.jspdf;
+
+//   const doc = new jsPDF();
+//   const data = await getData();
+
+//   let yOffset = 10;
+//   doc.text('User Data', 10, yOffset);
+//   yOffset += 10;
+
+//   data.forEach((item, index) => {
+//     doc.text(
+//       `${index + 1}: ${item.stuName} - ${item.course} - ${item.score}`,
+//       10,
+//       yOffset
+//     );
+//     yOffset += 10;
+//   });
+
+//   doc.save('user_data.pdf');
+// }
 export async function downloadPDF() {
   if (!window.jspdf) {
-    console.error('jsPDF is not loaded.'); // Error handling if jsPDF library is not loaded
+    console.error("jsPDF is not loaded.");
     return;
   }
-  const { jsPDF } = window.jspdf; // Destructure jsPDF from window object
+  const { jsPDF } = window.jspdf;
 
-  const doc = new jsPDF(); // Create a new PDF document
-  const data = await getData(); // Fetch data to be included in the PDF
+  const doc = new jsPDF();
+  const data = await getData();
 
-  // Map user data to a format suitable for the PDF table
+  // Prepare data for the table
   const tableData = data.map((item, index) => [
     index + 1,
     item.stuName,
@@ -24,61 +42,54 @@ export async function downloadPDF() {
     item.score,
   ]);
 
-  // Define columns for the PDF table
+  // Define table columns
   const tableColumns = [
-    'Student Number',
-    'Student Name',
-    'Course Subject',
-    'Score',
+    "Student Number",
+    "Student Name",
+    "Course Subject",
+    "Score",
   ];
-
-  // Create a table in the PDF document
+  //   console.log(tableColumns);
+  // Create table in PDF
   doc.autoTable({
-    head: [tableColumns], // Table header
-    body: tableData, // Table body
-    startY: 20, // Starting Y position of the table
-    theme: 'grid', // Table theme
-    headStyles: { fillColor: [22, 160, 133] }, // Header fill color
-    bodyStyles: { fillColor: [171, 219, 227] }, // Body fill color
-    alternateRowStyles: { fillColor: [240, 240, 240] }, // Alternate row fill color
+    head: [tableColumns],
+    body: tableData,
+    startY: 20,
+    theme: "grid", // You can change the theme to 'plain', 'grid', or 'striped'
+    headStyles: { fillColor: [22, 160, 133] }, // Change header color
+    bodyStyles: { fillColor: [171, 219, 227] }, // Change body color
+    alternateRowStyles: { fillColor: [240, 240, 240] }, // Change alternate row color
   });
 
-  doc.save('user_data.pdf'); // Save the PDF with the filename 'user_data.pdf'
+  doc.save("user_data.pdf");
 }
-
-// Function to download the user data as a CSV file
 export function downloadCSV() {
-  let csvContent = 'data:text/csv;charset=utf-8,'; // Initialize CSV content with header
-  csvContent += 'Student Number,Student Name,Course Subject,Score\n'; // Add header row
+  let csvContent = "data:text/csv;charset=utf-8,";
+  csvContent += "Student Number,Student Name,Course Subject,Score\n";
 
-  // Add each user data item as a row in the CSV
   userData.forEach((item, index) => {
     csvContent += `${index + 1},${item.stuName},${item.course},${item.score}\n`;
   });
 
-  // Encode CSV content for URL
   const encodedUri = encodeURI(csvContent);
-  const link = document.createElement('a'); // Create a link element
-  link.setAttribute('href', encodedUri); // Set href to the encoded URI
-  link.setAttribute('download', 'user_data.csv'); // Set the download attribute
-  document.body.appendChild(link); // Append link to the document body for Firefox compatibility
-  link.click(); // Trigger download
-  document.body.removeChild(link); // Remove link from document body after triggering download
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "user_data.csv");
+  document.body.appendChild(link); // Required for FF
+  link.click();
+  document.body.removeChild(link);
 }
+// console.log(window.jsPDF);
+downloadPdfBtn.addEventListener("click", await downloadPDF);
+downloadCsvBtn.addEventListener("click", downloadCSV);
 
-// Add event listeners for PDF and CSV download buttons
-downloadPdfBtn.addEventListener('click', await downloadPDF);
-downloadCsvBtn.addEventListener('click', downloadCSV);
-
-// Function to toggle accordion display
 export function accToggle(button) {
-  let x = button.id; // Get ID from the button element
-  console.log('Button of index clicked!', x);
-  'This is:', button;
+  // accBtn = button;
+  let x = button.id;
 
-  const accFirst = document.querySelector(`.accard--${x}`); // Select the accordion element corresponding to the button
+  const accFirst = document.querySelector(`.accard--${x}`);
+  const accFirst2 = document.querySelector("#accard--1");
 
-  console.log('Accordion class list:', accFirst.classList);
-  accFirst.classList.toggle('flex'); // Toggle 'flex' class
-  accFirst.classList.toggle('hidden'); // Toggle 'hidden' class
+  accFirst.classList.toggle("flex");
+  accFirst.classList.toggle("hidden");
 }
